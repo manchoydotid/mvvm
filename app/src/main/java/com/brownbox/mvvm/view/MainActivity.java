@@ -1,7 +1,9 @@
 package com.brownbox.mvvm.view;
 
-import android.support.v7.app.AppCompatActivity;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +12,7 @@ import com.brownbox.mvvm.Injection;
 import com.brownbox.mvvm.R;
 import com.brownbox.mvvm.TeamNavigator;
 import com.brownbox.mvvm.adapter.RVAdapter;
+import com.brownbox.mvvm.databinding.ActivityMainBinding;
 import com.brownbox.mvvm.model.TeamDetail;
 import com.brownbox.mvvm.viewmodel.TeamViewModel;
 
@@ -22,13 +25,13 @@ public class MainActivity extends AppCompatActivity implements TeamNavigator {
     private RecyclerView recTeam;
     private RVAdapter adapter;
     private List<TeamDetail> dataListTeamBola;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        recTeam = (RecyclerView)findViewById(R.id.rvTeamBola);
         teamViewModel = new TeamViewModel(Injection.provideTeamRepository(this),
                 getApplicationContext());
 
@@ -39,9 +42,11 @@ public class MainActivity extends AppCompatActivity implements TeamNavigator {
     }
 
     private void initAdapter() {
-        adapter = new RVAdapter(getApplicationContext(), dataListTeamBola);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recTeam.setLayoutManager(layoutManager);
+        adapter = new RVAdapter(this, dataListTeamBola);
+        recTeam = binding.rvTeamBola;
+        recTeam.setLayoutManager(new LinearLayoutManager(this));
+        //create line betweem itemrow
+        recTeam.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recTeam.setAdapter(adapter);
     }
 

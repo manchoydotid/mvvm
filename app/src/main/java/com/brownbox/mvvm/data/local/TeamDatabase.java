@@ -7,7 +7,7 @@ import android.content.Context;
 
 import com.brownbox.mvvm.model.TeamDetail;
 
-@Database(entities = {TeamDetail.class}, version = 1)
+@Database(entities = {TeamDetail.class}, version = 1, exportSchema = false)
 public abstract class TeamDatabase extends RoomDatabase {
 
     private static TeamDatabase INSTANCE;

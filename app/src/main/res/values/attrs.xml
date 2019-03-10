@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--@numStars : how many stars will display-->
+<!--@rating : how many stars which selected-->
+<resources>
+    <declare-styleable name="MyRatingView">
+        <attr name="numStars" format="integer"/>
+        <attr name="rating" format="integer"/>
+    </declare-styleable>
+</resources>
